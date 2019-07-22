@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Europe from './Europe';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const colors = ['red', 'green', 'blue', 'orange', 'yellow', '#fc0da1'];
+
+class App extends React.Component {
+  state= {}
+
+  changeCountryColor = (event)=> {
+    console.log(event.target.id, this.state[event.target.id]);
+    const currentColorIndex = colors.indexOf( this.state[event.target.id] );
+    const nextColorIndex = (currentColorIndex +1) % colors.length; 
+    //let nextColorIndex = currentColorIndex + 1;
+    //if( nextColorIndex === colors.length ){
+    //  nextColorIndex = 0;
+    //}
+    const nextColor = colors[ nextColorIndex ];
+
+    this.setState({
+      [event.target.id]: nextColor,
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Europe countryColors={this.state} onClick={this.changeCountryColor}/>
+      </div>
+    );
+  }
 }
 
 export default App;
